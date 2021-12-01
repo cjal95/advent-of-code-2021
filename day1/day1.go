@@ -14,7 +14,7 @@ func part1(numbers []int) int {
 			result++
 		}
 	}
-	
+
 	return result
 }
 
