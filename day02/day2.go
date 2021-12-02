@@ -1,35 +1,64 @@
 package main
 
 import (
-	//"bufio"
+	"bufio"
 	"fmt"
-	//"os"
-	//"strconv"
+	"os"
+	"strconv"
+	"strings"
 )
 
-func part1() {
-	fmt.Println("Part 1")
+func part1(Coordinates []string) int {
+	x, y := 0, 0
+
+	for _, Coords := range Coordinates{
+		splitString := strings.Fields(Coords)
+		depth, _ := strconv.Atoi(splitString[1])
+		switch splitString[0] {
+		case "forward":
+			x += depth
+		case "up":
+			y -= depth
+		case "down":
+			y += depth
+		}
+	}
+	return x * y
 }
 
-func part2() {
-	fmt.Println("Part 2")
+func part2(Coordinates []string) int {
+	x, y, aim := 0, 0, 0
+
+	for _, Coords := range Coordinates{
+		splitString := strings.Fields(Coords)
+		depth, _ := strconv.Atoi(splitString[1])
+		switch splitString[0] {
+		case "forward":
+			x += depth
+			y += aim * depth
+		case "up":
+			aim -= depth
+		case "down":
+			aim += depth
+		}
+	}
+	return x * y
 }
 
-/*func getMeasurements() []int {
+func getInput() []string {
 	file, _ := os.Open("input.txt")
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
-	var numbers []int
+	var input []string
 	for scanner.Scan() {
-		x, _ := strconv.Atoi(scanner.Text())
-		numbers = append(numbers, x)
+		input = append(input, scanner.Text())
 	}
-	return numbers
-}*/
+	return input
+}
 
 func main() {
-	part1()
-	part2()
-	//fmt.Println("Part one", part1(numbers))
-	//fmt.Println("Part two", part2(numbers))
+	Input := getInput()
+	fmt.Println("Part one:", part1(Input))
+	fmt.Println("Part two:", part2(Input))
+	
 }
